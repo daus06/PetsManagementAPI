@@ -1,0 +1,200 @@
+@model IEnumerable<PetsManagementAPI.Models.Pet>
+
+@{
+    ViewData["Title"] = "Manage Pets";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Manage Pets</h2>
+
+    <!-- Success/Error Messages -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <!-- Create Pet Button -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">Add New Pet</button>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No pets available.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var pet in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@pet.PetName</h5>
+                            <p class="card-text"><strong>Type:</strong> @pet.PetType</p>
+                            <p class="card-text"><strong>Breed:</strong> @(string.IsNullOrEmpty(pet.Breed) ? "Unknown" : pet.Breed)</p>
+                            <p class="card-text"><strong>Age:</strong> @(pet.Age > 12 ? (pet.Age / 12) + " years" : pet.Age + " months")</p>
+                            <p class="card-text"><strong>Neutered:</strong> @(pet.Neutered ? "Yes" : "No")</p>
+                            <p class="card-text"><strong>Vaccinated:</strong> @(pet.Vaccine ? "Fully Vaccinated" : "Not Vaccinated")</p>
+                            <p class="card-text"><strong>Status:</strong> @pet.Status</p>
+                            <p class="card-text"><strong>Added On:</strong> @pet.AddedAt.ToShortDateString()</p>
+
+                            <!-- Buttons -->
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal-@pet.PetID">Edit</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-@pet.PetID">Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Modal -->
+                <div class="modal fade" id="editModal-@pet.PetID" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Pet</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form asp-controller="Admins" asp-action="EditPet" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="modal-body">
+                                    <input type="hidden" name="PetID" value="@pet.PetID" />
+                                    <div class="mb-3">
+                                        <label class="form-label">Pet Name</label>
+                                        <input type="text" class="form-control" name="PetName" value="@pet.PetName" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Type</label>
+                                        <select class="form-control" name="PetType" required>
+                                            <option value="Cat" selected="@(pet.PetType == "Cat" ? "selected" : "")">Cat</option>
+                                            <option value="Dog" selected="@(pet.PetType == "Dog" ? "selected" : "")">Dog</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Breed</label>
+                                        <input type="text" class="form-control" name="Breed" value="@pet.Breed" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Age (Months)</label>
+                                        <input type="number" class="form-control" name="Age" value="@pet.Age" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Neutered</label>
+                                        <select class="form-control" name="Neutered">
+                                            <option value="true" selected="@(pet.Neutered ? "selected" : "")">Yes</option>
+                                            <option value="false" selected="@(!pet.Neutered ? "selected" : "")">No</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Vaccinated</label>
+                                        <select class="form-control" name="Vaccine">
+                                            <option value="true" selected="@(pet.Vaccine ? "selected" : "")">Fully Vaccinated</option>
+                                            <option value="false" selected="@(!pet.Vaccine ? "selected" : "")">Not Vaccinated</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-control" name="Status">
+                                            <option value="Available" selected="@(pet.Status == "Available" ? "selected" : "")">Available</option>
+                                            <option value="Adopted" selected="@(pet.Status == "Adopted" ? "selected" : "")">Adopted</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Save Changes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal-@pet.PetID" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Confirm Delete</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form asp-controller="Admins" asp-action="DeletePet" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="modal-body">
+                                    <input type="hidden" name="PetID" value="@pet.PetID" />
+                                    <p>Are you sure you want to delete <strong>@pet.PetName</strong>?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Create Pet Modal -->
+<div class="modal fade" id="createModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Pet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-controller="Admins" asp-action="CreatePet" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Pet Name</label>
+                        <input type="text" class="form-control" name="PetName" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Type</label>
+                        <select class="form-control" name="PetType" required>
+                            <option value="" disabled selected>Select Pet Type</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Dog">Dog</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Breed</label>
+                        <input type="text" class="form-control" name="Breed" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Age (Months)</label>
+                        <input type="number" class="form-control" name="Age" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select class="form-control" name="Status">
+                            <option value="Available">Available</option>
+                            <option value="Adopted">Adopted</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Neutered</label>
+                        <select class="form-control" name="Neutered">
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Vaccinated</label>
+                        <select class="form-control" name="Vaccine">
+                            <option value="true">Fully Vaccinated</option>
+                            <option value="false" selected>Not Vaccinated</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add Pet</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,274 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Custom styles for the home page -->
+<style>
+    /* Hero Section */
+    .hero-section {
+        background: url('/images/homebg.jpg') no-repeat center center;
+        background-size: cover;
+        padding: 4rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Dark overlay (doesn't block clicks) */
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            pointer-events: none; /* Fixes the button being unclickable */
+        }
+
+        /* Ensure text is above the overlay */
+        .hero-section h1,
+        .hero-section p {
+            position: relative;
+            z-index: 2;
+            color: white; /* Makes sure the text stands out */
+        }
+
+        .hero-section h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-in-out;
+            color: #ffffff;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #f1f1f1;
+        }
+
+    /* Button Styling */
+    .hero-btn {
+        background-color: #fff0e6;
+        border: 2px solid #0000a0;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        color: #0000a0;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 3px 3px 0 #0000a0;
+        position: relative; /* Ensures it's above the overlay */
+        z-index: 2; /* Fixes button click issue */
+    }
+
+        .hero-btn:hover {
+            background-color: #e6e6ff;
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 0 #0000a0;
+            color: #000066;
+        }
+
+    /* Pet Showcase */
+    .pet-showcase {
+        padding: 4rem 2rem;
+        background-color: #fff;
+    }
+
+    .pet-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,160,0.1);
+        transition: transform 0.3s ease;
+        margin-bottom: 2rem;
+    }
+
+        .pet-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pet-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+    .pet-card-body {
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+        .pet-card-body h5 {
+            color: #0000a0;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pet-card-body p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+    .btn-adopt {
+        background-color: #0000a0;
+        color: #fff;
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .btn-adopt:hover {
+            background-color: #000066;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+    /* Partner Shelters Section */
+    .partner-section {
+        padding: 4rem 2rem;
+        background-color: #f5ece3;
+    }
+
+        .partner-section h2 {
+            font-family: 'Pacifico', cursive;
+            color: #0000a0;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .partner-section .description {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: #0000a0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+    .partner-card {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,160,0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+        margin-bottom: 2rem;
+    }
+
+        .partner-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .partner-card img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .partner-card h5 {
+            color: #0000a0;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-card .phone {
+            color: #0000a0;
+            font-weight: 600;
+        }
+</style>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <h1>Welcome to Home4Strays</h1>
+    <p>Find your perfect furry companion and give a stray a loving home today!</p>
+    <a href="#" class="hero-btn">Explore Pets</a>
+</section>
+
+<!-- Pet Showcase Section -->
+<section class="pet-showcase">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #0000a0;">Meet Our Strays</h2>
+        <div class="row fade-in">
+            <!-- Pet 1 -->
+            <div class="col-md-4">
+                <div class="pet-card">
+                    <img src="https://placedog.net/300/200?id=5" alt="Fluffy">
+                    <div class="pet-card-body">
+                        <h5>Fluffy</h5>
+                        <p>2-year-old tabby cat, loves cuddles</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pet 2 -->
+            <div class="col-md-4">
+                <div class="pet-card">
+                    <img src="https://placedog.net/300/200" alt="Max">
+                    <div class="pet-card-body">
+                        <h5>Max</h5>
+                        <p>3-year-old playful pup, great with kids</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pet 3 -->
+            <div class="col-md-4">
+                <div class="pet-card">
+                    <img src="https://placedog.net/300/200?r" alt="Luna">
+                    <div class="pet-card-body">
+                        <h5>Luna</h5>
+                        <p>1-year-old kitten, curious and sweet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partner Shelters Section -->
+<section class="partner-section">
+    <div class="container">
+        <h2>Our Partner Shelters</h2>
+        <p class="description">
+            Seeing abandoned animals will certainly tug at our heartstrings. There are some of us with big hearts who will adopt and make them a part of our family, and then there are others with bigger hearts who will go the extra mile to dedicate an entire facility to rescue, rehabilitate and rehome the animals, which is no mean feat. These heroes are our shelter partners which include rescue groups, foster homes and sanctuaries. It takes a lot of time, effort, resources, patience and passion to soldier on in order to do so much more than just saving animals’ lives. Hats off to them!
+        </p>
+        <div class="row fade-in">
+            <!-- Partner 1: MeeFah Homeless Animals Shelter -->
+            <div class="col-md-4">
+                <div class="partner-card">
+                    <img src="~/images/MeeFah.jpg" alt="MeeFah Homeless Animals Shelter">
+                    <h5>MeeFah Homeless Animals Shelter</h5>
+                    <p>1858, Kg Rincing Hulu, Semenyih, Selangor</p>
+                    <p class="phone">+60123312680</p>
+                </div>
+            </div>
+            <!-- Partner 2: Pusat Haiwan QQ Shelter -->
+            <div class="col-md-4">
+                <div class="partner-card">
+                    <img src="~/images/PusatHaiwan.jpg" alt="Pusat Haiwan QQ Shelter">
+                    <h5>Pusat Haiwan QQ Shelter</h5>
+                    <p>D1316A Jalan Batang Berjuntai, Batu Arang, Selangor</p>
+                    <p class="phone">+60189888845</p>
+                </div>
+            </div>
+            <!-- Partner 3: Paws Animal Welfare Society -->
+            <div class="col-md-4">
+                <div class="partner-card">
+                    <img src="~/images/Paws.jpg" alt="Paws Animal Welfare Society">
+                    <h5>Paws Animal Welfare Society</h5>
+                    <p>Lot 93316-93317, Jalan PJU 1A/20, Ara Damansara, Petaling Jaya, Selangor</p>
+                    <p class="phone">+60172847500</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

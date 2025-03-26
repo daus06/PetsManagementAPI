@@ -1,0 +1,227 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<!-- Custom styles for the Login page -->
+<style>
+    /* Login Page Container */
+    .login-container {
+        display: flex;
+        min-height: calc(100vh - 200px); /* Adjust for navbar and footer */
+        background-color: #fff;
+    }
+
+    /* Left Side (Login Form) */
+    .login-form-section {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 2rem;
+        background-color: #fff;
+        animation: login-fadeInLeft 1s ease-in-out;
+    }
+
+    .login-form {
+        max-width: 400px;
+        width: 100%;
+    }
+
+        .login-form h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #0000a0;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form label {
+            display: block;
+            font-size: 1rem;
+            color: #0000a0;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Apply consistent styling to username, password, and text inputs */
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #0000a0;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .login-form input[type="text"]:focus,
+            .login-form input[type="password"]:focus {
+                border-color: #000066;
+                box-shadow: 0 0 10px rgba(0, 0, 160, 0.2);
+            }
+
+    /* Password Field with Show/Hide Toggle */
+    .password-field {
+        position: relative;
+    }
+
+        .password-field i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0000a0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+            .password-field i:hover {
+                color: #000066;
+            }
+
+    /* Login Button */
+    .login-btn-form {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #0000a0;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .login-btn-form:hover {
+            background-color: #000066;
+            transform: translateY(-3px);
+        }
+
+    /* Links */
+    .login-links {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+        .login-links a {
+            color: #0000a0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+            .login-links a:hover {
+                color: #000066;
+                text-decoration: underline;
+            }
+
+    /* Right Side (Decorative Section) */
+    .login-decorative-section {
+        flex: 1;
+        background: url('/images/loginbg.jpg') no-repeat center center;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        animation: login-fadeInRight 1s ease-in-out;
+    }
+
+    .decorative-content {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+
+        .decorative-content h3 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .decorative-content p {
+            font-size: 1.1rem;
+            color: white;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+</style>
+
+<!-- Login Page -->
+<div class="login-container">
+    <!-- Left Side: Login Form -->
+    <div class="login-form-section">
+        <div class="login-form">
+            <h2>Login to Home4Strays</h2>
+            @if (ViewBag.Error != null)
+            {
+                <div style="color: red; text-align: center; margin-bottom: 1rem;">
+                    @ViewBag.Error
+                </div>
+            }
+            <form method="post" asp-action="Login" asp-controller="Users">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="password" name="password" required>
+                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                    </div>
+                </div>
+                <button type="submit" class="login-btn-form">Login</button>
+            </form>
+            <div class="login-links">
+                <p>Don't have an account? <a asp-controller="Users" asp-action="Signup">Register here</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Right Side: Decorative Section -->
+    <div class="login-decorative-section">
+        <div class="decorative-content">
+            <h3>Welcome Back!</h3>
+            <p>Log in to find your perfect furry companion and give a stray a loving home today!</p>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Show/Hide Password -->
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.classList.toggle('bi-eye');
+            togglePassword.classList.toggle('bi-eye-slash');
+        });
+
+        // Check for TempData success message
+        document.addEventListener('DOMContentLoaded', function () {
+        @if (TempData["Success"] != null)
+        {
+            <text>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: '@TempData["Success"]',
+                            confirmButtonColor: '#0000a0'
+                        });
+            </text>
+        }
+        });
+    </script>
+}

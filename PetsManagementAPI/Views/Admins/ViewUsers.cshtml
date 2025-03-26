@@ -1,0 +1,114 @@
+﻿@model IEnumerable<PetsManagementAPI.Models.User>
+@{
+    ViewData["Title"] = "View Users";
+}
+
+<h2 class="mb-3">User List</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>@user.CreatedAt</td>
+                <td>
+                    <!-- Edit Button -->
+                    <button class="btn btn-warning btn-sm" onclick="openEditModal('@user.UserID', '@user.Username', '@user.Email')">
+                        Edit
+                    </button>
+
+                    <!-- Delete Button -->
+                    <button class="btn btn-danger btn-sm" onclick="openDeleteModal('@user.UserID', '@user.Username')">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" method="post" asp-controller="Admins" asp-action="EditUser">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="editUserId" name="UserID" />
+
+                    <div class="mb-3">
+                        <label for="editUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="editUsername" name="Username" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="Email" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete User Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="deleteUsername"></strong>?</p>
+                <form id="deleteUserForm" method="post" asp-controller="Admins" asp-action="DeleteUser">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteUserId" name="UserID" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openEditModal(id, username, email) {
+            document.getElementById("editUserId").value = id;
+            document.getElementById("editUsername").value = username;
+            document.getElementById("editEmail").value = email;
+            var editModal = new bootstrap.Modal(document.getElementById("editUserModal"));
+            editModal.show();
+        }
+
+        function openDeleteModal(id, username) {
+            document.getElementById("deleteUserId").value = id;
+            document.getElementById("deleteUsername").innerText = username;
+            var deleteModal = new bootstrap.Modal(document.getElementById("deleteUserModal"));
+            deleteModal.show();
+        }
+    </script>
+}

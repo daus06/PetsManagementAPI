@@ -1,0 +1,93 @@
+@model IEnumerable<PetsManagementAPI.Models.AdoptionRequest>
+
+@{
+    ViewData["Title"] = "My Adoption Requests";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">My Adoption Requests</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">You have not submitted any adoption requests.</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Status</th>
+                    <th>Submitted At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model)
+                {
+                    <tr>
+                        <td>@request.Pet?.PetName</td>
+                        <td>@request.Status</td>
+                        <td>@request.SubmittedAt.ToShortDateString()</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#petDetailsModal"
+                                    data-petname="@request.Pet?.PetName"
+                                    data-pettype="@request.Pet?.PetType"
+                                    data-breed="@request.Pet?.Breed"
+                                    data-age="@request.Pet?.Age"
+                                    data-neutered="@(request.Pet?.Neutered == true ? "Yes" : "No")"
+                                    data-vaccine="@(request.Pet?.Vaccine == true ? "Fully Vaccinated" : "Not Vaccinated")">
+                                View Details
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<!-- Pet Details Modal -->
+<div class="modal fade" id="petDetailsModal" tabindex="-1" aria-labelledby="petDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="petDetailsModalLabel">Pet Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Pet Name:</strong> <span id="modalPetName"></span></p>
+                <p><strong>Type:</strong> <span id="modalPetType"></span></p>
+                <p><strong>Breed:</strong> <span id="modalBreed"></span></p>
+                <p><strong>Age:</strong> <span id="modalAge"></span></p>
+                <p><strong>Neutered:</strong> <span id="modalNeutered"></span></p>
+                <p><strong>Vaccination Status:</strong> <span id="modalVaccine"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var petDetailsModal = document.getElementById('petDetailsModal');
+        petDetailsModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+
+            // Get data attributes
+            var petName = button.getAttribute('data-petname');
+            var petType = button.getAttribute('data-pettype');
+            var breed = button.getAttribute('data-breed');
+            var age = button.getAttribute('data-age');
+            var neutered = button.getAttribute('data-neutered');
+            var vaccine = button.getAttribute('data-vaccine');
+
+            // Update modal content
+            document.getElementById('modalPetName').textContent = petName;
+            document.getElementById('modalPetType').textContent = petType;
+            document.getElementById('modalBreed').textContent = breed || 'Unknown';
+            document.getElementById('modalAge').textContent = age + ' months';
+            document.getElementById('modalNeutered').textContent = neutered;
+            document.getElementById('modalVaccine').textContent = vaccine;
+        });
+    </script>
+}

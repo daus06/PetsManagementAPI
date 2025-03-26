@@ -1,0 +1,267 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<!-- Custom styles for the privacy page -->
+<style>
+
+    /* General Body Styling */
+    body {
+        background: url('/images/wood.jpg') fixed;
+        background-size: contain;
+        background-color: #f5ece3; /* Consistent background color */
+        margin: 0; /* Remove default margins */
+    }
+
+    /* Privacy Page Styles */
+.privacy-section {
+    padding: 4rem 1rem 6rem 1rem;
+    background: url('/images/wood.jpg') fixed;
+    background-size: contain;
+    min-height: calc(100vh - 200px);
+    background-color: #f5ece3;
+}
+
+.privacy-section h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    animation: privacyFadeInDown 1s ease-in-out;
+}
+
+.privacy-section h2 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.privacy-section p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #666;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Container Adjustments */
+.privacy-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Accordion Styling */
+.privacy-accordion {
+    margin-bottom: 2rem;
+}
+
+.privacy-accordion-item {
+    border: 1px solid #0000a0;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.privacy-accordion-item:hover {
+    box-shadow: 0 4px 15px rgba(0,0,160,0.15);
+}
+
+.privacy-accordion-button {
+    background-color: #fff0e6;
+    color: #0000a0;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.privacy-accordion-button:not(.collapsed) {
+    background-color: #e6e6ff;
+    color: #000066;
+}
+
+.privacy-accordion-button:focus {
+    box-shadow: none;
+    border-color: #0000a0;
+}
+
+.privacy-accordion-button::after {
+    font-size: 1.2rem;
+    color: #0000a0;
+}
+
+.privacy-accordion-body {
+    padding: 1.5rem;
+    color: #666;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+}
+
+/* Contact Info */
+.privacy-contact-info {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+    padding: 2rem 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #0000a0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.privacy-contact-info h3 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.2rem;
+    color: #0000a0;
+    margin-bottom: 1rem;
+}
+
+.privacy-contact-info p {
+    color: #0000a0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.privacy-contact-info a {
+    color: #0000a0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.privacy-contact-info a:hover {
+    color: #000066;
+    text-decoration: underline;
+}
+</style>
+
+<!-- Privacy Section -->
+<section class="privacy-section">
+    <div class="privacy-container">
+        <h1>@ViewData["Title"]</h1>
+
+        <div class="privacy-fade-in">
+            <p>
+                At Home4Strays, we are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This Privacy Policy explains how we collect, use, and protect your data when you use our website.
+            </p>
+
+            <!-- Accordion for Privacy Policy Sections -->
+            <div class="accordion privacy-accordion" id="privacyAccordion">
+                <!-- Section 1: Information We Collect -->
+                <div class="privacy-accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button privacy-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Information We Collect
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#privacyAccordion">
+                        <div class="privacy-accordion-body">
+                            We may collect the following types of information when you interact with our website:
+                            <ul>
+                                <li><strong>Personal Information:</strong> Name, email address, phone number, and address when you sign up or contact us.</li>
+                                <li><strong>Pet Adoption Information:</strong> Details about your preferences for adopting a pet, such as pet type, age, or location.</li>
+                                <li><strong>Usage Data:</strong> Information about how you use our website, including your IP address, browser type, and pages visited.</li>
+                                <li><strong>Cookies:</strong> We use cookies to enhance your experience, such as remembering your preferences.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: How We Use Your Information -->
+                <div class="privacy-accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How We Use Your Information
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#privacyAccordion">
+                        <div class="privacy-accordion-body">
+                            Your information is used to:
+                            <ul>
+                                <li>Facilitate pet adoptions and match you with the right pet.</li>
+                                <li>Communicate with you about adoption inquiries, updates, or events.</li>
+                                <li>Improve our website and services by analyzing usage data.</li>
+                                <li>Send you newsletters or updates (you can opt out at any time).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: How We Protect Your Information -->
+                <div class="privacy-accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            How We Protect Your Information
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#privacyAccordion">
+                        <div class="privacy-accordion-body">
+                            We take your privacy seriously and implement the following measures:
+                            <ul>
+                                <li>Use secure servers and encryption to protect your data.</li>
+                                <li>Limit access to your information to authorized personnel only.</li>
+                                <li>Regularly update our security practices to safeguard against unauthorized access.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Sharing Your Information -->
+                <div class="privacy-accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Sharing Your Information
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#privacyAccordion">
+                        <div class="privacy-accordion-body">
+                            We do not sell or rent your personal information. We may share your information with:
+                            <ul>
+                                <li>Partner shelters to facilitate pet adoptions.</li>
+                                <li>Service providers who assist with our operations (e.g., email services).</li>
+                                <li>Legal authorities if required by law.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Your Rights -->
+                <div class="privacy-accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Your Rights
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#privacyAccordion">
+                        <div class="privacy-accordion-body">
+                            You have the right to:
+                            <ul>
+                                <li>Access the personal information we hold about you.</li>
+                                <li>Request corrections to inaccurate data.</li>
+                                <li>Request deletion of your data (subject to legal obligations).</li>
+                                <li>Opt out of marketing communications at any time.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="privacy-contact-info privacy-fade-in">
+                <h3>Contact Us</h3>
+                <p>
+                    If you have any questions about this Privacy Policy, please contact us at:
+                </p>
+                <p>Email: <a href="mailto:support@home4strays.com">support@home4strays.com</a></p>
+                <p>Phone: <a href="tel:+60123456789">+60123456789</a></p>
+            </div>
+        </div>
+    </div>
+</section>

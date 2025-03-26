@@ -1,0 +1,328 @@
+﻿@{
+    ViewData["Title"] = "FAQs";
+}
+
+<!-- Custom styles for the FAQs page -->
+<style>
+    /* FAQs Hero Section */
+    /* FAQs Hero Section */
+    .faqs-hero {
+        background: url('/images/FAQsbg.jpeg') no-repeat center center;
+        background-size: cover;
+        padding: 4rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Dark overlay to make the background darker */
+        .faqs-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3); /* Adjust for more/less darkness */
+            z-index: 1;
+            pointer-events: none; /* Allows interactions */
+        }
+
+        /* Ensure text is above the overlay */
+        .faqs-hero h1,
+        .faqs-hero p {
+            position: relative;
+            z-index: 2;
+            color: white; /* Improves readability */
+        }
+
+        /* Title Styling */
+        .faqs-hero h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        /* Paragraph Styling */
+        .faqs-hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #f1f1f1;
+        }
+
+
+    /* FAQs Section */
+    .faqs-section {
+        padding: 4rem 2rem;
+        background-color: #fff;
+    }
+
+    .faqs-container {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .faqs-section h2 {
+        font-family: 'Pacifico', cursive;
+        color: #0000a0;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Search Bar */
+    .faqs-search {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+        .faqs-search input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #0000a0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+            .faqs-search input:focus {
+                border-color: #000066;
+                box-shadow: 0 0 10px rgba(0, 0, 160, 0.2);
+            }
+
+    /* FAQ Items (Accordion) */
+    .faq-item {
+        background-color: #e6e6ff;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        opacity: 0; /* Start hidden for animation */
+        transition: transform 0.3s ease, opacity 0.5s ease;
+    }
+
+        .faq-item.reveal {
+            opacity: 1;
+            animation: faqs-fadeInUp 0.5s ease-in-out forwards;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 160, 0.2);
+        }
+
+    .faq-question {
+        padding: 1.5rem;
+        font-size: 1.2rem;
+        color: #0000a0;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s ease;
+    }
+
+        .faq-question:hover {
+            background-color: #d5d5ff;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+    .faq-answer {
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+        .faq-answer.active {
+            padding: 1rem 1.5rem;
+            max-height: 200px; /* Adjust based on content */
+        }
+
+    /* Call to Action Section */
+    .faqs-cta-section {
+        padding: 4rem 2rem;
+        background-color: #f5ece3;
+        text-align: center;
+    }
+
+        .faqs-cta-section h2 {
+            font-family: 'Pacifico', cursive;
+            color: #0000a0;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faqs-cta-section p {
+            color: #0000a0;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+    .faqs-cta-btn {
+        background-color: #fff0e6;
+        border: 2px solid #0000a0;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        color: #0000a0;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 3px 3px 0 #0000a0;
+    }
+
+        .faqs-cta-btn:hover {
+            background-color: #e6e6ff;
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 0 #0000a0;
+            color: #000066;
+        }
+</style>
+
+<!-- FAQs Hero Section -->
+<section class="faqs-hero">
+    <h1>Frequently Asked Questions</h1>
+    <p>Have questions about adopting a pet or working with Home4Strays? We’ve got answers!</p>
+</section>
+
+<!-- FAQs Section -->
+<section class="faqs-section">
+    <div class="faqs-container">
+        <h2>FAQs</h2>
+        <!-- Search Bar -->
+        <div class="faqs-search">
+            <input type="text" id="faqSearch" placeholder="Search FAQs..." onkeyup="filterFAQs()">
+        </div>
+        <!-- FAQ Items -->
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I adopt a pet from Home4Strays?
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    To adopt a pet, visit our "Find A Pet" page, browse available pets, and fill out an adoption application. Our team will review your application and contact you to proceed with the adoption process.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is the adoption fee?
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    The adoption fee varies depending on the pet but typically ranges from $50 to $150. This fee helps cover the cost of vaccinations, spaying/neutering, and other medical care.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I foster a pet before adopting?
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes! We offer a foster-to-adopt program where you can foster a pet for a trial period before making a final decision. Contact us to learn more.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What should I prepare before bringing a pet home?
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    You’ll need to prepare a safe space for your pet, including food, water, a bed, toys, and any necessary supplies like a leash or litter box. We also recommend pet-proofing your home.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can I volunteer with Home4Strays?
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    We’d love to have you as a volunteer! Please visit our "About Us" page and contact us to learn about volunteer opportunities and how you can get involved.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="faqs-cta-section">
+    <div class="faqs-container">
+        <h2>Still Have Questions?</h2>
+        <p>If you couldn’t find the answer you’re looking for, feel free to reach out to us. We’re here to help!</p>
+        <a href="#" class="faqs-cta-btn">Contact Us</a>
+    </div>
+</section>
+
+<!-- JavaScript for FAQ Functionality and Animations -->
+<script>
+    // Accordion Functionality
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', () => {
+            const answer = item.nextElementSibling;
+            const icon = item.querySelector('i');
+            const isActive = answer.classList.contains('active');
+
+            // Close all other answers
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                ans.classList.remove('active');
+            });
+            document.querySelectorAll('.faq-question i').forEach(i => {
+                i.classList.remove('active');
+            });
+
+            // Toggle the clicked answer
+            if (!isActive) {
+                answer.classList.add('active');
+                icon.classList.add('active');
+            }
+        });
+    });
+
+    // Search Functionality
+    function filterFAQs() {
+        const searchTerm = document.getElementById('faqSearch').value.toLowerCase();
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question').textContent.toLowerCase();
+            const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+
+            if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Reveal Animation on Scroll
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    const revealOnScroll = () => {
+        const windowHeight = window.innerHeight;
+        faqItems.forEach(item => {
+            const itemTop = item.getBoundingClientRect().top;
+            if (itemTop < windowHeight - 100) {
+                item.classList.add('reveal');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+</script>

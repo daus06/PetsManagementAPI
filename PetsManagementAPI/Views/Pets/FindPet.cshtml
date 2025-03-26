@@ -1,0 +1,143 @@
+@model IEnumerable<PetsManagementAPI.Models.Pet>
+
+@{
+    ViewData["Title"] = "Find A Pet";
+}
+
+<div class="container py-5">
+    <h2 class="text-center fw-bold mb-4">Find Your Perfect Pet</h2>
+
+    <!-- Search Bar -->
+    <form asp-controller="Pets" asp-action="FindPet" method="get" class="bg-light p-4 rounded shadow-sm">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="breed" placeholder="Search by breed..." />
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" name="petType">
+                    <option value="">All Types</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Dog">Dog</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" name="age" placeholder="Max age in months..." />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Search</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Success/Error Messages -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["Error"]</div>
+    }
+
+    <!-- Pet Listings -->
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted mt-4">No pets available for adoption currently.</p>
+    }
+    else
+    {
+        <div class="row mt-4">
+            @foreach (var pet in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card shadow-sm border-0 rounded">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary fw-bold">@pet.PetName</h5>
+                            <p class="mb-1"><strong>Type:</strong> @pet.PetType</p>
+                            <p class="mb-1"><strong>Breed:</strong> @(string.IsNullOrEmpty(pet.Breed) ? "Unknown" : pet.Breed)</p>
+                            <p class="mb-1"><strong>Age:</strong> @(pet.Age > 12 ? (pet.Age / 12) + " years" : pet.Age + " months")</p>
+                            <p class="mb-1"><strong>Neutered:</strong> @(pet.Neutered ? "Yes" : "No")</p>
+                            <p class="mb-1"><strong>Vaccinated:</strong> @(pet.Vaccine ? "Yes" : "No")</p>
+                            <p class="mb-2"><strong>Status:</strong> <span class="badge bg-@(pet.Status == "Available" ? "success" : "secondary")">@pet.Status</span></p>
+
+                            @if (pet.Status == "Available")
+                            {
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#adoptModal"
+                                            data-petid="@pet.PetID" data-petname="@pet.PetName">
+                                        Adopt Now
+                                    </button>
+                                }
+                                else
+                                {
+                                    <p class="text-danger mt-2">Please login to adopt</p>
+                                    <a asp-controller="Users" asp-action="Login" class="btn btn-warning w-100">Login</a>
+                                }
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary w-100" disabled>Already Adopted</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Adoption Modal -->
+<div class="modal fade" id="adoptModal" tabindex="-1" aria-labelledby="adoptModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="adoptModalLabel">Adopt a Pet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Users" asp-action="CreateAdoptionRequest" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="PetID" id="adoptPetID" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Pet Name</label>
+                        <input type="text" class="form-control" id="adoptPetName" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Your Full Name</label>
+                        <input type="text" class="form-control" name="FullName" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Address</label>
+                        <input type="text" class="form-control" name="Address" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Phone Number</label>
+                        <input type="text" class="form-control" name="PhoneNumber" required />
+                    </div>
+                    <input type="hidden" name="Status" value="Pending" />
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var adoptModal = document.getElementById('adoptModal');
+        adoptModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var petID = button.getAttribute('data-petid');
+            var petName = button.getAttribute('data-petname');
+
+            document.getElementById('adoptPetID').value = petID;
+            document.getElementById('adoptPetName').value = petName;
+        });
+    </script>
+}

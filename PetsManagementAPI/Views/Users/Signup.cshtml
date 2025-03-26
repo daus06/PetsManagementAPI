@@ -1,0 +1,369 @@
+﻿@* Views/Users/Signup.cshtml *@
+@{
+    ViewData["Title"] = "Signup";
+}
+
+<!-- Custom styles for the Signup page -->
+<style>
+    /* Signup Page Container */
+    .signup-container {
+        display: flex;
+        min-height: calc(100vh - 200px); /* Adjust for navbar and footer */
+        background-color: #fff;
+    }
+
+    /* Left Side (Signup Form) */
+    .signup-form-section {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 2rem;
+        background-color: #fff;
+        animation: signup-fadeInLeft 1s ease-in-out;
+    }
+
+    .signup-form {
+        max-width: 400px;
+        width: 100%;
+    }
+
+        .signup-form h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #0000a0;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .signup-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .signup-form label {
+            display: block;
+            font-size: 1rem;
+            color: #0000a0;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .signup-form input[type="text"],
+        .signup-form input[type="password"],
+        .signup-form input[type="email"],
+        .signup-form input[type="tel"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #0000a0;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .signup-form input[type="text"]:focus,
+            .signup-form input[type="password"]:focus,
+            .signup-form input[type="email"]:focus,
+            .signup-form input[type="tel"]:focus {
+                border-color: #000066;
+                box-shadow: 0 0 10px rgba(0, 0, 160, 0.2);
+            }
+
+    /* Password Field with Show/Hide Toggle */
+    .password-field {
+        position: relative;
+    }
+
+        .password-field i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0000a0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+            .password-field i:hover {
+                color: #000066;
+            }
+
+    /* Password Requirements Guide */
+    .password-requirements {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: #666;
+        background-color: #f5ece3;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+        .password-requirements h4 {
+            font-size: 0.9rem;
+            color: #0000a0;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .password-requirements li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.3rem;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+            .password-requirements li.met {
+                color: #28a745;
+            }
+
+            .password-requirements li i {
+                margin-right: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .password-requirements li.met i {
+                color: #28a745;
+            }
+
+            .password-requirements li:not(.met) i {
+                color: #ff4d4d;
+            }
+
+    /* Terms Checkbox */
+    .terms-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+        .terms-group input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .terms-group label {
+            font-size: 0.9rem;
+            color: #0000a0;
+            font-weight: 400;
+        }
+
+        .terms-group a {
+            color: #0000a0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .terms-group a:hover {
+                color: #000066;
+                text-decoration: underline;
+            }
+
+    /* Sign Up Button */
+    .signup-btn-form {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #0000a0;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .signup-btn-form:hover {
+            background-color: #000066;
+            transform: translateY(-3px);
+            animation: pulse 0.5s infinite;
+        }
+
+        .signup-btn-form:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+    /* Links */
+    .signup-links {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+        .signup-links a {
+            color: #0000a0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+            .signup-links a:hover {
+                color: #000066;
+                text-decoration: underline;
+            }
+
+    /* Right Side (Decorative Section) */
+    .signup-decorative-section {
+        flex: 1;
+        background: url('/images/signupbg.jpg') no-repeat center center;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        animation: signup-fadeInRight 1s ease-in-out;
+    }
+
+    .decorative-content {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+
+        .decorative-content h3 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .decorative-content p {
+            font-size: 1.1rem;
+            color: white;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+</style>
+
+<!-- Signup Page -->
+<div class="signup-container">
+    <!-- Left Side: Signup Form -->
+    <div class="signup-form-section">
+        <div class="signup-form">
+            <h2>Join Home4Strays</h2>
+            <!-- Signup Form -->
+            <form method="post" asp-action="Signup" asp-controller="Users">
+                <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input type="text" id="Username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email Address</label>
+                    <input type="email" id="Email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="PasswordHash">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="PasswordHash" name="password" required>
+                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                    </div>
+                    <!-- Password Requirements Guide -->
+                    <div class="password-requirements">
+                        <h4>Strong Password Requirements:</h4>
+                        <ul>
+                            <li id="length-requirement"><i class="bi bi-x-circle"></i> At least 8 characters</li>
+                            <li id="uppercase-requirement"><i class="bi bi-x-circle"></i> At least one uppercase letter</li>
+                            <li id="number-requirement"><i class="bi bi-x-circle"></i> At least one number</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="terms-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a asp-controller="Home" asp-action="Privacy">Terms and Conditions</a></label>
+                </div>
+                <button type="submit" class="signup-btn-form" id="signupButton" disabled>Sign Up</button>
+            </form>
+            <!-- Links -->
+            <div class="signup-links">
+                <p>Already have an account? <a asp-controller="Users" asp-action="Login">Login here</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Right Side: Decorative Section -->
+    <div class="signup-decorative-section">
+        <div class="decorative-content">
+            <h3>Welcome to Home4Strays!</h3>
+            <p>Create an account to start your journey in finding a loving home for a stray pet today!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Add SweetAlert2 CDN -->
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Show/Hide Password Toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('PasswordHash');
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.classList.toggle('bi-eye');
+            togglePassword.classList.toggle('bi-eye-slash');
+        });
+
+        // Password Requirements Guide
+        const lengthRequirement = document.getElementById('length-requirement');
+        const uppercaseRequirement = document.getElementById('uppercase-requirement');
+        const numberRequirement = document.getElementById('number-requirement');
+        const signupButton = document.getElementById('signupButton');
+        const termsCheckbox = document.getElementById('terms');
+
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+
+            // Check password requirements
+            const hasLength = password.length >= 8;
+            const hasUppercase = /[A-Z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+
+            // Update the requirements checklist
+            lengthRequirement.classList.toggle('met', hasLength);
+            lengthRequirement.querySelector('i').classList.toggle('bi-check-circle', hasLength);
+            lengthRequirement.querySelector('i').classList.toggle('bi-x-circle', !hasLength);
+
+            uppercaseRequirement.classList.toggle('met', hasUppercase);
+            uppercaseRequirement.querySelector('i').classList.toggle('bi-check-circle', hasUppercase);
+            uppercaseRequirement.querySelector('i').classList.toggle('bi-x-circle', !hasUppercase);
+
+            numberRequirement.classList.toggle('met', hasNumber);
+            numberRequirement.querySelector('i').classList.toggle('bi-check-circle', hasNumber);
+            numberRequirement.querySelector('i').classList.toggle('bi-x-circle', !hasNumber);
+
+            // Enable/disable Sign Up button based on password requirements and terms checkbox
+            updateSignupButton();
+        });
+
+        termsCheckbox.addEventListener('change', updateSignupButton);
+
+        function updateSignupButton() {
+            const password = passwordInput.value;
+            const isStrongPassword = password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password);
+            const isTermsChecked = termsCheckbox.checked;
+            signupButton.disabled = !(isStrongPassword && isTermsChecked);
+        }
+
+        // Check for TempData messages and show SweetAlert2 popups
+        document.addEventListener('DOMContentLoaded', function () {
+        @if (TempData["Error"] != null)
+        {
+            <text>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '@TempData["Error"]',
+                            confirmButtonColor: '#0000a0'
+                        });
+            </text>
+        }
+        });
+    </script>
+}

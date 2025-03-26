@@ -1,0 +1,634 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .navbar {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+        .navbar-brand img {
+            height: 50px;
+        }
+
+    .nav-link {
+        font-size: 1.1rem;
+        margin: 0.5rem 0; /* Vertical spacing in collapsed menu */
+    }
+
+    .nav-item i {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        padding-bottom: 120px; /* Slightly more space on mobile */
+    }
+
+    .footer {
+        padding: 1rem 0;
+        font-size: 0.9rem;
+    }
+
+        .footer .row {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer .col-md-6 {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer .text-md-end {
+            text-align: center !important;
+        }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+        .navbar-brand img {
+            height: 40px;
+        }
+
+    .nav-link {
+        font-size: 1rem;
+    }
+
+    .nav-item i {
+        font-size: 1rem;
+    }
+}
+
+/* Animations (Home) */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .pet-card img {
+        height: 150px;
+    }
+
+    .partner-section h2 {
+        font-size: 2rem;
+    }
+
+    .partner-section .description {
+        font-size: 1rem;
+    }
+
+    .partner-card img {
+        max-width: 120px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 960px; /* Keep content centered and not too wide */
+    }
+}
+
+/* Animations (Privacy) */
+@keyframes privacyFadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.privacy-fade-in {
+    animation: privacyFadeIn 1.5s ease-in-out;
+}
+
+@keyframes privacyFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .privacy-section {
+        padding: 2rem 1rem 8rem 1rem; /* Increased bottom padding for mobile to clear footer */
+    }
+
+        .privacy-section h1 {
+            font-size: 2.5rem;
+        }
+
+        .privacy-section h2 {
+            font-size: 1.5rem;
+        }
+
+        .privacy-section p {
+            font-size: 0.9rem;
+        }
+
+    .privacy-contact-info {
+        margin-bottom: 4rem; /* Increased bottom margin for mobile to ensure space before footer */
+    }
+
+        .privacy-contact-info h3 {
+            font-size: 1.8rem;
+        }
+
+        .privacy-contact-info p {
+            font-size: 0.9rem;
+        }
+
+    .privacy-container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .privacy-accordion-button {
+        font-size: 1.2rem;
+        padding: 1rem 1.25rem;
+    }
+
+        .privacy-accordion-button::after {
+            font-size: 1rem;
+        }
+}
+
+@media (min-width: 1200px) {
+    .privacy-container {
+        max-width: 900px;
+    }
+}
+
+/* Animations */
+@keyframes about-fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes about-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-fade-in {
+    animation: about-fadeIn 1.5s ease-in-out;
+}
+
+@keyframes about-fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Adjustments for Mobile View */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 80px; /* Increase padding for mobile if footer is taller */
+    }
+
+    .about-hero {
+        padding: 3rem 1rem;
+    }
+
+        .about-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .about-hero p {
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+    .about-section {
+        padding: 3rem 1rem;
+    }
+
+        .about-section h2 {
+            font-size: 2rem;
+        }
+
+        .about-section p {
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+    .about-team-section {
+        padding: 3rem 1rem;
+    }
+
+    .about-team-card {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+        .about-team-card img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .about-team-card h5 {
+            font-size: 1.2rem;
+        }
+
+        .about-team-card p {
+            font-size: 0.9rem;
+        }
+
+    .about-adoption-stories-section {
+        padding: 3rem 1rem;
+        margin-bottom: 80px; /* Ensure space for footer on mobile */
+    }
+
+        .about-adoption-stories-section h2 {
+            font-size: 2rem;
+        }
+
+        .about-adoption-stories-section p {
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+    .about-photo-collage {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.5rem;
+    }
+
+    .about-collage-item img {
+        height: 150px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .about-container {
+        max-width: 960px;
+    }
+}
+
+/* Animations */
+@keyframes faqs-fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes faqs-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.faqs-fade-in {
+    animation: faqs-fadeIn 1.5s ease-in-out;
+}
+
+@keyframes faqs-fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .faqs-hero {
+        padding: 3rem 1rem;
+    }
+
+        .faqs-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .faqs-hero p {
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+    .faqs-section {
+        padding: 3rem 1rem;
+    }
+
+        .faqs-section h2 {
+            font-size: 2rem;
+        }
+
+    .faqs-search input {
+        max-width: 90%;
+    }
+
+    .faq-question {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    .faq-answer {
+        font-size: 0.9rem;
+    }
+
+        .faq-answer.active {
+            padding: 0.75rem 1rem;
+        }
+
+    .faqs-cta-section {
+        padding: 3rem 1rem;
+    }
+
+        .faqs-cta-section h2 {
+            font-size: 2rem;
+        }
+
+        .faqs-cta-section p {
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+    .faqs-cta-btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .faqs-container {
+        max-width: 960px;
+    }
+}
+
+/* Animations */
+@keyframes login-fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes login-fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Adjustments for Login Page */
+@media (max-width: 991.98px) {
+    .login-container {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .login-form-section {
+        padding: 3rem 1rem;
+    }
+
+    .login-decorative-section {
+        padding: 2rem;
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-form h2 {
+        font-size: 2rem;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .login-btn-form {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .decorative-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .decorative-content p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-form-section {
+        padding: 2rem 0.5rem;
+    }
+
+    .login-decorative-section {
+        padding: 1.5rem;
+        min-height: 200px;
+    }
+}
+
+/* Animations */
+@keyframes signup-fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes signup-fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive Adjustments for Signup Page */
+@media (max-width: 991.98px) {
+    .signup-container {
+        flex-direction: column;
+        min-height: calc(100vh - 200px); /* Ensure it accounts for navbar and footer */
+    }
+
+    .signup-form-section {
+        padding: 3rem 1rem;
+    }
+
+    .signup-decorative-section {
+        padding: 2rem;
+        min-height: 300px; /* Ensure enough height to display content */
+    }
+}
+
+@media (max-width: 768px) {
+    .signup-form h2 {
+        font-size: 2rem;
+    }
+
+    .signup-form input[type="text"],
+    .signup-form input[type="password"],
+    .signup-form input[type="email"],
+    .signup-form input[type="tel"] {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .signup-btn-form {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .decorative-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .decorative-content p {
+        font-size: 0.9rem;
+    }
+
+    .password-requirements {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .signup-form-section {
+        padding: 2rem 0.5rem;
+    }
+
+    .signup-decorative-section {
+        padding: 1.5rem;
+        min-height: 250px; /* Adjusted for smaller screens */
+    }
+
+    /* Ensure the signup container has enough space to avoid footer overlap */
+    .signup-container {
+        padding-bottom: 60px; /* Add padding to account for footer height */
+    }
+}
