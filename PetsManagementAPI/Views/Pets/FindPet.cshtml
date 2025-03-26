@@ -4,11 +4,105 @@
     ViewData["Title"] = "Find A Pet";
 }
 
-<div class="container py-5">
-    <h2 class="text-center fw-bold mb-4">Find Your Perfect Pet</h2>
+<!-- Custom Styles -->
+<style>
+    body {
+        background: linear-gradient(to right, #d9b38c, #f4e1c9); /* Earthy gradient */
+        font-family: 'Roboto', sans-serif;
+    }
 
-    <!-- Search Bar -->
-    <form asp-controller="Pets" asp-action="FindPet" method="get" class="bg-light p-4 rounded shadow-sm">
+    .container {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-top: 2.5rem;
+        margin-bottom: 6rem; /* Extra space to prevent footer overlap */
+    }
+
+    .search-box {
+        background: #f9f7f3;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-body {
+        background: #fff;
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        color: #8d5524; /* Earthy brown */
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+    }
+
+    .btn-primary {
+        background: #e67e22; /* Carrot orange */
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background: #d35400; /* Darker orange */
+        }
+
+    .btn-warning {
+        background: #e6b800; /* Golden */
+        border: none;
+    }
+
+        .btn-warning:hover {
+            background: #cc9900; /* Darker gold */
+        }
+
+    .btn-secondary {
+        background: #5d4037; /* Muted brown */
+        border: none;
+    }
+
+        .btn-secondary:hover {
+            background: #3e2723;
+        }
+
+    .modal-header {
+        background: #8d5524; /* Earthy brown */
+        color: #fff;
+    }
+
+    .badge.bg-success {
+        background-color: #2d6a4f !important; /* Deep green */
+    }
+
+    .badge.bg-secondary {
+        background-color: #7f8c8d !important; /* Neutral gray */
+    }
+
+    .text-muted {
+        color: #7f8c8d !important;
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center fw-bold mb-4" style="color: #8d5524;">?? Find Your New Companion</h2>
+
+    <!-- Search Box -->
+    <form asp-controller="Pets" asp-action="FindPet" method="get" class="search-box">
         <div class="row g-3">
             <div class="col-md-4">
                 <input type="text" class="form-control" name="breed" placeholder="Search by breed..." />
@@ -29,7 +123,7 @@
         </div>
     </form>
 
-    <!-- Success/Error Messages -->
+    <!-- Messages -->
     @if (TempData["Success"] != null)
     {
         <div class="alert alert-success mt-3">@TempData["Success"]</div>
@@ -42,7 +136,7 @@
     <!-- Pet Listings -->
     @if (!Model.Any())
     {
-        <p class="text-center text-muted mt-4">No pets available for adoption currently.</p>
+        <p class="text-center text-muted mt-4">No pets available for adoption right now.</p>
     }
     else
     {
@@ -50,9 +144,9 @@
             @foreach (var pet in Model)
             {
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card shadow-sm border-0 rounded">
+                    <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title text-primary fw-bold">@pet.PetName</h5>
+                            <h5 class="card-title fw-bold">@pet.PetName</h5>
                             <p class="mb-1"><strong>Type:</strong> @pet.PetType</p>
                             <p class="mb-1"><strong>Breed:</strong> @(string.IsNullOrEmpty(pet.Breed) ? "Unknown" : pet.Breed)</p>
                             <p class="mb-1"><strong>Age:</strong> @(pet.Age > 12 ? (pet.Age / 12) + " years" : pet.Age + " months")</p>
@@ -64,7 +158,7 @@
                             {
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#adoptModal"
+                                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#adoptModal"
                                             data-petid="@pet.PetID" data-petname="@pet.PetName">
                                         Adopt Now
                                     </button>
@@ -77,7 +171,7 @@
                             }
                             else
                             {
-                                <button class="btn btn-secondary w-100" disabled>Already Adopted</button>
+                                <button class="btn btn-secondary w-100" disabled>Adopted</button>
                             }
                         </div>
                     </div>
@@ -92,7 +186,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-primary" id="adoptModalLabel">Adopt a Pet</h5>
+                <h5 class="modal-title fw-bold" id="adoptModalLabel">?? Adopt a Friend</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

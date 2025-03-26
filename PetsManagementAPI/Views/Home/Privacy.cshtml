@@ -2,266 +2,243 @@
     ViewData["Title"] = "Privacy Policy";
 }
 
-<!-- Custom styles for the privacy page -->
-<style>
+<!-- Include Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-    /* General Body Styling */
-    body {
-        background: url('/images/wood.jpg') fixed;
-        background-size: contain;
-        background-color: #f5ece3; /* Consistent background color */
-        margin: 0; /* Remove default margins */
+<!-- Custom Styles -->
+<style>
+    /* General Styling */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    /* Privacy Page Styles */
-.privacy-section {
-    padding: 4rem 1rem 6rem 1rem;
-    background: url('/images/wood.jpg') fixed;
-    background-size: contain;
-    min-height: calc(100vh - 200px);
-    background-color: #f5ece3;
-}
+    body {
+        background: url('/images/forest-bg.jpg') fixed center/cover;
+        font-family: 'Arial', sans-serif;
+    }
 
-.privacy-section h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 3.5rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    animation: privacyFadeInDown 1s ease-in-out;
-}
+    /* Privacy Section */
+    .privacy-section {
+        padding: 5rem 1rem;
+        min-height: calc(100vh - 150px);
+        background: rgba(245, 245, 245, 0.95); /* Semi-transparent overlay */
+    }
 
-.privacy-section h2 {
-    font-family: 'Pacifico', cursive;
-    font-size: 2rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
+    .privacy-wrapper {
+        max-width: 950px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
 
-.privacy-section p {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-    color: #666;
-    text-align: center;
-    font-weight: bold;
-}
+    /* Header */
+    .privacy-heading {
+        font-family: 'Merriweather', serif;
+        font-size: 3.2rem;
+        text-align: center;
+        color: #2d6a4f;
+        margin-bottom: 1.5rem;
+    }
 
-/* Container Adjustments */
-.privacy-container {
-    max-width: 900px;
-    margin: 0 auto;
-}
+    .privacy-intro {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.15rem;
+        line-height: 1.7;
+        text-align: center;
+        color: #5d6d6e;
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+    }
 
-/* Accordion Styling */
-.privacy-accordion {
-    margin-bottom: 2rem;
-}
+    /* Accordion */
+    .privacy-details .detail-item {
+        border: 2px solid #2d6a4f;
+        border-radius: 10px;
+        margin-bottom: 1.2rem;
+        background: #f9f9f9;
+        transition: all 0.3s ease;
+    }
 
-.privacy-accordion-item {
-    border: 1px solid #0000a0;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    background-color: #fff;
-    transition: all 0.3s ease;
-}
+        .privacy-details .detail-item:hover {
+            box-shadow: 0 5px 15px rgba(45, 106, 79, 0.2);
+        }
 
-.privacy-accordion-item:hover {
-    box-shadow: 0 4px 15px rgba(0,0,160,0.15);
-}
+    .privacy-details .detail-button {
+        background-color: #f0f7f2;
+        color: #2d6a4f;
+        font-family: 'Merriweather', serif;
+        font-size: 1.35rem;
+        padding: 1.3rem;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s ease;
+    }
 
-.privacy-accordion-button {
-    background-color: #fff0e6;
-    color: #0000a0;
-    font-family: 'Pacifico', cursive;
-    font-size: 1.5rem;
-    border-radius: 8px;
-    padding: 1.25rem 1.5rem;
-    transition: all 0.3s ease;
-}
+        .privacy-details .detail-button:not(.collapsed) {
+            background-color: #b7e4c7;
+            color: #1b4332;
+        }
 
-.privacy-accordion-button:not(.collapsed) {
-    background-color: #e6e6ff;
-    color: #000066;
-}
+        .privacy-details .detail-button:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(45, 106, 79, 0.5);
+        }
 
-.privacy-accordion-button:focus {
-    box-shadow: none;
-    border-color: #0000a0;
-}
+    .privacy-details .detail-content {
+        padding: 1.5rem;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1rem;
+        color: #5d6d6e;
+        line-height: 1.6;
+    }
 
-.privacy-accordion-button::after {
-    font-size: 1.2rem;
-    color: #0000a0;
-}
+    /* Contact Section */
+    .privacy-contact {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: #b7e4c7;
+        border-radius: 12px;
+        text-align: center;
+    }
 
-.privacy-accordion-body {
-    padding: 1.5rem;
-    color: #666;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.1rem;
-}
+        .privacy-contact h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 2.2rem;
+            color: #2d6a4f;
+            margin-bottom: 1rem;
+        }
 
-/* Contact Info */
-.privacy-contact-info {
-    text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 5rem;
-    padding: 2rem 1.5rem;
-    background-color: #fff;
-    border-radius: 8px;
-    border: 1px solid #0000a0;
-    width: 100%;
-    box-sizing: border-box;
-}
+        .privacy-contact p {
+            font-size: 1.1rem;
+            color: #1b4332;
+            margin-bottom: 0.5rem;
+        }
 
-.privacy-contact-info h3 {
-    font-family: 'Pacifico', cursive;
-    font-size: 2.2rem;
-    color: #0000a0;
-    margin-bottom: 1rem;
-}
+        .privacy-contact a {
+            color: #2d6a4f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
 
-.privacy-contact-info p {
-    color: #0000a0;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.1rem;
-    text-align: center;
-    margin-bottom: 0.5rem;
-}
-
-.privacy-contact-info a {
-    color: #0000a0;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.privacy-contact-info a:hover {
-    color: #000066;
-    text-decoration: underline;
-}
+            .privacy-contact a:hover {
+                color: #1b4332;
+                text-decoration: underline;
+            }
 </style>
 
-<!-- Privacy Section -->
+<!-- Privacy Policy Section -->
 <section class="privacy-section">
-    <div class="privacy-container">
-        <h1>@ViewData["Title"]</h1>
+    <div class="privacy-wrapper">
+        <h1 class="privacy-heading animate__animated animate__fadeInDown">@ViewData["Title"]</h1>
+        <p class="privacy-intro">
+            At StraySafe, your privacy matters to us. Learn how we collect, use, and safeguard your information when you interact with our site.
+        </p>
 
-        <div class="privacy-fade-in">
-            <p>
-                At Home4Strays, we are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This Privacy Policy explains how we collect, use, and protect your data when you use our website.
-            </p>
-
-            <!-- Accordion for Privacy Policy Sections -->
-            <div class="accordion privacy-accordion" id="privacyAccordion">
-                <!-- Section 1: Information We Collect -->
-                <div class="privacy-accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button privacy-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Information We Collect
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#privacyAccordion">
-                        <div class="privacy-accordion-body">
-                            We may collect the following types of information when you interact with our website:
-                            <ul>
-                                <li><strong>Personal Information:</strong> Name, email address, phone number, and address when you sign up or contact us.</li>
-                                <li><strong>Pet Adoption Information:</strong> Details about your preferences for adopting a pet, such as pet type, age, or location.</li>
-                                <li><strong>Usage Data:</strong> Information about how you use our website, including your IP address, browser type, and pages visited.</li>
-                                <li><strong>Cookies:</strong> We use cookies to enhance your experience, such as remembering your preferences.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 2: How We Use Your Information -->
-                <div class="privacy-accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            How We Use Your Information
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#privacyAccordion">
-                        <div class="privacy-accordion-body">
-                            Your information is used to:
-                            <ul>
-                                <li>Facilitate pet adoptions and match you with the right pet.</li>
-                                <li>Communicate with you about adoption inquiries, updates, or events.</li>
-                                <li>Improve our website and services by analyzing usage data.</li>
-                                <li>Send you newsletters or updates (you can opt out at any time).</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 3: How We Protect Your Information -->
-                <div class="privacy-accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            How We Protect Your Information
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#privacyAccordion">
-                        <div class="privacy-accordion-body">
-                            We take your privacy seriously and implement the following measures:
-                            <ul>
-                                <li>Use secure servers and encryption to protect your data.</li>
-                                <li>Limit access to your information to authorized personnel only.</li>
-                                <li>Regularly update our security practices to safeguard against unauthorized access.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 4: Sharing Your Information -->
-                <div class="privacy-accordion-item">
-                    <h2 class="accordion-header" id="headingFour">
-                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            Sharing Your Information
-                        </button>
-                    </h2>
-                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#privacyAccordion">
-                        <div class="privacy-accordion-body">
-                            We do not sell or rent your personal information. We may share your information with:
-                            <ul>
-                                <li>Partner shelters to facilitate pet adoptions.</li>
-                                <li>Service providers who assist with our operations (e.g., email services).</li>
-                                <li>Legal authorities if required by law.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 5: Your Rights -->
-                <div class="privacy-accordion-item">
-                    <h2 class="accordion-header" id="headingFive">
-                        <button class="accordion-button privacy-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            Your Rights
-                        </button>
-                    </h2>
-                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#privacyAccordion">
-                        <div class="privacy-accordion-body">
-                            You have the right to:
-                            <ul>
-                                <li>Access the personal information we hold about you.</li>
-                                <li>Request corrections to inaccurate data.</li>
-                                <li>Request deletion of your data (subject to legal obligations).</li>
-                                <li>Opt out of marketing communications at any time.</li>
-                            </ul>
-                        </div>
+        <!-- Accordion -->
+        <div class="privacy-details accordion" id="privacyDetails">
+            <!-- Section 1: Information We Collect -->
+            <div class="detail-item animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <h2 class="detail-header" id="detailOne">
+                    <button class="detail-button" type="button" data-bs-toggle="collapse" data-bs-target="#contentOne">
+                        What We Collect
+                    </button>
+                </h2>
+                <div id="contentOne" class="accordion-collapse collapse show">
+                    <div class="detail-content">
+                        <ul>
+                            <li><strong>Personal Data:</strong> Name, email, phone number, address.</li>
+                            <li><strong>Adoption Info:</strong> Preferences for pet adoption.</li>
+                            <li><strong>Site Usage:</strong> IP address, browser details, visited pages.</li>
+                            <li><strong>Cookies:</strong> Enhance functionality and user experience.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact Information -->
-            <div class="privacy-contact-info privacy-fade-in">
-                <h3>Contact Us</h3>
-                <p>
-                    If you have any questions about this Privacy Policy, please contact us at:
-                </p>
-                <p>Email: <a href="mailto:support@home4strays.com">support@home4strays.com</a></p>
-                <p>Phone: <a href="tel:+60123456789">+60123456789</a></p>
+            <!-- Section 2: How We Use Your Information -->
+            <div class="detail-item animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <h2 class="detail-header" id="detailTwo">
+                    <button class="detail-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contentTwo">
+                        How We Use It
+                    </button>
+                </h2>
+                <div id="contentTwo" class="accordion-collapse collapse">
+                    <div class="detail-content">
+                        <ul>
+                            <li>Match you with pets for adoption.</li>
+                            <li>Send updates, event info, and newsletters.</li>
+                            <li>Improve our website based on usage trends.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+
+            <!-- Section 3: Security Measures -->
+            <div class="detail-item animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <h2 class="detail-header" id="detailThree">
+                    <button class="detail-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contentThree">
+                        Data Protection
+                    </button>
+                </h2>
+                <div id="contentThree" class="accordion-collapse collapse">
+                    <div class="detail-content">
+                        <ul>
+                            <li>Encrypted storage on secure servers.</li>
+                            <li>Access restricted to authorized staff.</li>
+                            <li>Ongoing security enhancements.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Data Sharing -->
+            <div class="detail-item animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <h2 class="detail-header" id="detailFour">
+                    <button class="detail-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contentFour">
+                        Who We Share With
+                    </button>
+                </h2>
+                <div id="contentFour" class="accordion-collapse collapse">
+                    <div class="detail-content">
+                        <ul>
+                            <li>We <strong>never sell</strong> your data.</li>
+                            <li>Shared only with adoption partners or as required by law.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Your Rights -->
+            <div class="detail-item animate__animated animate__fadeInUp" style="animation-delay: 0.5s;">
+                <h2 class="detail-header" id="detailFive">
+                    <button class="detail-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contentFive">
+                        Your Rights
+                    </button>
+                </h2>
+                <div id="contentFive" class="accordion-collapse collapse">
+                    <div class="detail-content">
+                        <ul>
+                            <li>View, edit, or delete your information.</li>
+                            <li>Unsubscribe from promotional emails.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="privacy-contact animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+            <h3>Get in Touch</h3>
+            <p>Email: <a href="mailto:info@straysafe.org">info@straysafe.org</a></p>
+            <p>Phone: <a href="tel:+60198765432">+60198765432</a></p>
         </div>
     </div>
 </section>

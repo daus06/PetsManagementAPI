@@ -2,283 +2,275 @@
     ViewData["Title"] = "About Us";
 }
 
-<!-- Custom styles for the About Us page -->
+<!-- Include Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<!-- Custom Styles -->
 <style>
-    /* Ensure the page has enough space for the footer */
-    body {
+    /* General Styling */
+    * {
         margin: 0;
-        padding-bottom: 60px; /* Adjust this value based on your footer's height */
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    /* About Us Hero Section */
-    .about-hero {
+    body {
+        padding-bottom: 80px; /* Space for footer */
+        background-color: #f9f7f3;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        height: 70vh;
         background: url('/images/aboutbg.jpg') no-repeat center center;
         background-size: cover;
-        padding: 4rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(34, 47, 62, 0.5);
+    }
+
+    .hero-content {
         position: relative;
-        overflow: hidden;
+        z-index: 1;
+        color: #fff;
     }
 
-        /* Dark overlay to make the background darker */
-        .about-hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* Adjust value for darkness */
-            z-index: 1;
-            pointer-events: none; /* Ensures elements remain clickable */
-        }
-
-        /* Ensure text is above the overlay */
-        .about-hero h1,
-        .about-hero p {
-            position: relative;
-            z-index: 2;
-            color: white; /* Makes sure the text stands out */
-        }
-
-        /* Title Styling */
-        .about-hero h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 1s ease-in-out;
-        }
-
-        /* Paragraph Styling */
-        .about-hero p {
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            color: #f1f1f1;
-        }
-
-
-    /* About Us General Section Styling */
-    .about-section {
-        padding: 4rem 2rem;
-        background-color: #fff;
-        text-align: center;
-    }
-
-        .about-section h2 {
-            font-family: 'Pacifico', cursive;
-            color: #0000a0;
-            font-size: 2.5rem;
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 600;
             margin-bottom: 1rem;
         }
 
-        .about-section p {
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            line-height: 1.6;
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-    /* About Us Container */
-    .about-container {
-        max-width: 960px;
-        margin: 0 auto;
+    .hero-quote {
+        font-family: 'Lora', serif;
+        font-style: italic;
+        font-size: 1.4rem;
+        color: #f1c40f;
+        margin-top: 1.5rem;
     }
 
-    /* About Us Team Section */
-    .about-team-section {
-        padding: 4rem 2rem;
-        background-color: #f5ece3;
-    }
-
-    .about-team-card {
-        background-color: #fff;
-        border-radius: 15px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 15px rgba(0,0,160,0.1);
+    /* Mission Section */
+    .mission-section {
+        padding: 5rem 2rem;
         text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        margin-bottom: 2rem;
+        background-color: #fff;
     }
 
-        .about-team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 6px 20px rgba(0,0,160,0.2);
+        .mission-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
         }
 
-        .about-team-card img {
-            width: 120px;
-            height: 120px;
+        .mission-section p {
+            font-size: 1.15rem;
+            color: #7f8c8d;
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+    /* Team Section */
+    .team-section {
+        padding: 5rem 2rem;
+        background: linear-gradient(to bottom, #e8ecef 0%, #d5dadf 100%);
+    }
+
+        .team-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+    .team-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .team-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-card img {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 1rem;
+            border: 3px solid #16a085;
         }
 
-        .about-team-card h5 {
-            color: #0000a0;
-            font-size: 1.3rem;
+        .team-card h5 {
+            font-size: 1.4rem;
+            color: #2c3e50;
             margin-bottom: 0.5rem;
         }
 
-        .about-team-card p {
-            color: #666;
+        .team-card p {
             font-size: 0.95rem;
+            color: #7f8c8d;
         }
 
-    /* About Us Adoption Stories (Photo Collage) Section */
-    .about-adoption-stories-section {
-        padding: 4rem 2rem;
-        margin-bottom: 60px; /* Ensure space for the footer */
-        background-color: #e6e6ff;
-        position: relative;
+    /* Adoption Stories Section */
+    .stories-section {
+        padding: 5rem 2rem;
+        background-color: #fef9e7;
     }
 
-        .about-adoption-stories-section h2 {
-            font-family: 'Pacifico', cursive;
-            color: #0000a0;
-            font-size: 2.5rem;
+        .stories-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #2c3e50;
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .about-adoption-stories-section p {
-            color: #0000a0;
-            font-size: 1.1rem;
-            max-width: 800px;
+        .stories-section p {
+            font-size: 1.15rem;
+            color: #7f8c8d;
+            max-width: 850px;
             margin: 0 auto 3rem;
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-    .about-photo-collage {
+    .photo-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
         max-width: 1200px;
         margin: 0 auto;
     }
 
-    .about-collage-item {
+    .photo-item {
         position: relative;
         overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,160,0.1);
-        transition: transform 0.3s ease, opacity 0.5s ease;
-        opacity: 0; /* Start hidden for animation */
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transition: all 0.3s ease;
     }
 
-        .about-collage-item img {
+        .photo-item img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            display: block;
         }
 
-        .about-collage-item:hover {
-            transform: scale(1.05);
-        }
-
-        /* Reveal animation for collage items */
-        .about-collage-item.about-reveal {
+        .photo-item.visible {
             opacity: 1;
-            animation: about-fadeInUp 0.5s ease-in-out forwards;
+            animation: slideUp 0.6s ease-in-out;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
         }
 </style>
 
-<!-- About Us Hero Section -->
-<section class="about-hero">
-    <h1>About Home4Strays</h1>
-    <p>We are a passionate team dedicated to rescuing, rehabilitating, and rehoming stray animals, ensuring they find loving forever homes.</p>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content animate__animated animate__fadeIn">
+        <h1>About StraySafe</h1>
+        <p>Dedicated to rescuing and rehoming stray animals with love and care.</p>
+        <blockquote class="hero-quote">
+            "Every stray we save is a story of hope rewritten."
+        </blockquote>
+    </div>
 </section>
 
 <!-- Mission Section -->
-<section class="about-section">
-    <div class="about-container">
-        <h2>Our Mission</h2>
+<section class="mission-section">
+    <div class="container">
+        <h2 class="animate__animated animate__fadeInDown">Our Purpose</h2>
         <p>
-            At Home4Strays, our mission is to end pet homelessness by providing shelter, care, and love to stray animals. We work tirelessly to rescue animals in need, rehabilitate them with the help of our dedicated team and partners, and find them loving families. Every animal deserves a second chance, and we’re here to make that happen—one adoption at a time.
+            At StraySafe, we’re driven by a passion to give every stray animal a chance at a happy life. We rescue, nurture, and connect them with caring families, working hand-in-hand with our community to reduce pet homelessness one step at a time.
         </p>
     </div>
 </section>
 
 <!-- Team Section -->
-<section class="about-team-section">
-    <div class="about-container">
-        <h2 class="text-center mb-4">Meet Our Team</h2>
-        <div class="row about-fade-in">
-            <!-- Team Member 1 -->
-            <div class="col-md-4">
-                <div class="about-team-card">
-                    <img src="~/images/Emily.png" alt="Team Member 1">
-                    <h5>Emily Carter</h5>
-                    <p>Founder & Animal Lover</p>
+<section class="team-section">
+    <div class="container">
+        <h2 class="animate__animated animate__fadeInDown">Our Team</h2>
+        <div class="row">
+            <div class="col-md-4 animate__animated animate__fadeInLeft">
+                <div class="team-card">
+                    <img src="~/images/1.jpeg" alt="Team Member 1">
+                    <h5>Laura Evans</h5>
+                    <p>Founder & Rescue Advocate</p>
                 </div>
             </div>
-            <!-- Team Member 2 -->
-            <div class="col-md-4">
-                <div class="about-team-card">
-                    <img src="~/images/James.jpg" alt="Team Member 2">
-                    <h5>James Lee</h5>
-                    <p>Veterinarian & Care Specialist</p>
+            <div class="col-md-4 animate__animated animate__fadeInUp">
+                <div class="team-card">
+                    <img src="~/images/2.jpeg" alt="Team Member 2">
+                    <h5>Dr. Mark Chen</h5>
+                    <p>Veterinary Expert</p>
                 </div>
             </div>
-            <!-- Team Member 3 -->
-            <div class="col-md-4">
-                <div class="about-team-card">
-                    <img src="~/images/Sarah.png" alt="Team Member 3">
-                    <h5>Sarah Tan</h5>
-                    <p>Adoption Coordinator</p>
+            <div class="col-md-4 animate__animated animate__fadeInRight">
+                <div class="team-card">
+                    <img src="~/images/3.jpeg" alt="Team Member 3">
+                    <h5>Clara Ng</h5>
+                    <p>Adoption Manager</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Adoption Stories (Photo Collage) Section -->
-<section class="about-adoption-stories-section">
-    <div class="about-container">
-        <h2>Adoption Stories</h2>
+<!-- Adoption Stories Section -->
+<section class="stories-section">
+    <div class="container">
+        <h2 class="animate__animated animate__fadeInDown">Success Stories</h2>
         <p>
-            We’re proud to share the heartwarming stories of animals who have found their forever homes. These families have opened their hearts to our rescued pets, creating bonds that last a lifetime. Take a look at some of our happy adopters!
+            Celebrate the joy of adoption with these heartwarming tales of pets finding their forever homes. Each photo captures a moment of love and connection made possible by our efforts and your support.
         </p>
-        <div class="about-photo-collage">
-            <!-- Collage Item 1 -->
-            <div class="about-collage-item">
-                <img src="~/images/Adopter1.jpg" alt="Adopter 1">
-            </div>
-            <!-- Collage Item 2 -->
-            <div class="about-collage-item">
-                <img src="~/images/Adopter2.jpg" alt="Adopter 2">
-            </div>
-            <!-- Collage Item 3 -->
-            <div class="about-collage-item">
-                <img src="~/images/Adopter3.jpg" alt="Adopter 3">
-            </div>
-            <!-- Collage Item 4 -->
-            <div class="about-collage-item">
-                <img src="~/images/Adopter4.jpg" alt="Adopter 4">
-            </div>
-        </div>
+       
     </div>
 </section>
 
-<!-- JavaScript for Scroll Animation -->
+<!-- Scroll Animation Script -->
 <script>
-    // Function to reveal collage items on scroll
-    const aboutCollageItems = document.querySelectorAll('.about-collage-item');
+    const photoItems = document.querySelectorAll('.photo-item');
 
-    const aboutRevealOnScroll = () => {
+    const revealPhotos = () => {
         const windowHeight = window.innerHeight;
-        aboutCollageItems.forEach(item => {
+        photoItems.forEach(item => {
             const itemTop = item.getBoundingClientRect().top;
-            if (itemTop < windowHeight - 100) {
-                item.classList.add('about-reveal');
+            if (itemTop < windowHeight - 150) {
+                item.classList.add('visible');
             }
         });
     };
 
-    // Trigger the function on scroll and on page load
-    window.addEventListener('scroll', aboutRevealOnScroll);
-    window.addEventListener('load', aboutRevealOnScroll);
+    window.addEventListener('scroll', revealPhotos);
+    window.addEventListener('load', revealPhotos);
 </script>

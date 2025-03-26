@@ -3,50 +3,57 @@
     ViewData["Title"] = "View Users";
 }
 
-<h2 class="mb-3">User List</h2>
+<div class="container mt-4">
+    <h2 class="mb-3 text-center text-primary">User Management</h2>
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Created At</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.Username</td>
-                <td>@user.Email</td>
-                <td>@user.CreatedAt</td>
-                <td>
-                    <!-- Edit Button -->
-                    <button class="btn btn-warning btn-sm" onclick="openEditModal('@user.UserID', '@user.Username', '@user.Email')">
-                        Edit
-                    </button>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Username</td>
+                        <td>@user.Email</td>
+                        <td>@user.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td class="text-center">
+                            <!-- Edit Button -->
+                            <button class="btn btn-sm btn-outline-warning" onclick="openEditModal('@user.UserID', '@user.Username', '@user.Email')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
 
-                    <!-- Delete Button -->
-                    <button class="btn btn-danger btn-sm" onclick="openDeleteModal('@user.UserID', '@user.Username')">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                            <!-- Delete Button -->
+                            <button class="btn btn-sm btn-outline-danger ms-2" onclick="openDeleteModal('@user.UserID', '@user.Username')">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -65,8 +72,10 @@
                         <input type="email" class="form-control" id="editEmail" name="Email" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -75,19 +84,21 @@
 
 <!-- Delete User Modal -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 <p>Are you sure you want to delete <strong id="deleteUsername"></strong>?</p>
                 <form id="deleteUserForm" method="post" asp-controller="Admins" asp-action="DeleteUser">
                     @Html.AntiForgeryToken()
                     <input type="hidden" id="deleteUserId" name="UserID" />
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -95,6 +106,7 @@
 </div>
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
     <script>
         function openEditModal(id, username, email) {
             document.getElementById("editUserId").value = id;

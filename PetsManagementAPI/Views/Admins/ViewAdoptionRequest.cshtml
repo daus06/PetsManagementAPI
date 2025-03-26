@@ -4,62 +4,124 @@
     ViewData["Title"] = "Adoption Requests";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center">Adoption Requests</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">?? Adoption Requests ??</h2>
 
     @if (!Model.Any())
     {
-        <p class="text-center text-muted">No adoption requests found.</p>
+        <div class="alert alert-info text-center">
+            <strong>No adoption requests found.</strong>
+        </div>
     }
     else
     {
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Pet Name</th>
-                    <th>Status</th>
-                    <th>Submitted At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var request in Model)
-                {
-                    <tr>
-                        <td>@request.FullName</td>
-                        <td>@request.Address</td>
-                        <td>@request.PhoneNumber</td>
-                        <td>@request.Pet?.PetName</td>
-                        <td>@request.Status</td>
-                        <td>@request.SubmittedAt.ToString("yyyy-MM-dd HH:mm")</td>
-                        <td>
-                            @if (request.Status == "Pending")
-                            {
-                                <form asp-action="UpdateStatus" asp-controller="Admins" method="post" class="d-inline">
-                                    <input type="hidden" name="AdoptID" value="@request.AdoptID" />
-                                    <input type="hidden" name="Status" value="Approved" />
-                                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                                </form>
-
-                                <form asp-action="UpdateStatus" asp-controller="Admins" method="post" class="d-inline">
-                                    <input type="hidden" name="AdoptID" value="@request.AdoptID" />
-                                    <input type="hidden" name="Status" value="Rejected" />
-                                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                                </form>
-                            }
-
-                            <form asp-action="Delete" asp-controller="Admins" method="post" class="d-inline">
-                                <input type="hidden" name="AdoptID" value="@request.AdoptID" />
-                                <button type="submit" class="btn btn-secondary btn-sm"
-                                    onclick="return confirm('Are you sure you want to delete this request?');">Delete</button>
-                            </form>
-                        </td>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped shadow-sm">
+                <thead class="table-dark">
+                    <tr class="text-center">
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Pet Name</th>
+                        <th>Status</th>
+                        <th>Submitted At</th>
+                        <th>Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model)
+                    {
+                        <tr class="text-center align-middle">
+                            <td>@request.FullName</td>
+                            <td>@request.Address</td>
+                            <td>@request.PhoneNumber</td>
+                            <td>@request.Pet?.PetName</td>
+                            <td>
+                                <span class="badge @(request.Status == "Pending" ? "bg-warning text-dark" : (request.Status == "Approved" ? "bg-success" : "bg-danger"))">
+                                    @request.Status
+                                </span>
+                            </td>
+                            <td>@request.SubmittedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        @if (request.Status == "Pending")
+                                        {
+                                            <li>
+                                                <form asp-action="UpdateStatus" asp-controller="Admins" method="post" class="d-inline">
+                                                    <input type="hidden" name="AdoptID" value="@request.AdoptID" />
+                                                    <input type="hidden" name="Status" value="Approved" />
+                                                    <button type="submit" class="dropdown-item text-success">
+                                                       Approve
+                                                    </button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <form asp-action="UpdateStatus" asp-controller="Admins" method="post" class="d-inline">
+                                                    <input type="hidden" name="AdoptID" value="@request.AdoptID" />
+                                                    <input type="hidden" name="Status" value="Rejected" />
+                                                    <button type="submit" class="dropdown-item text-danger">
+                                                       Reject
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        }
+                                        <li>
+                                            <form asp-action="Delete" asp-controller="Admins" method="post" class="d-inline">
+                                                <input type="hidden" name="AdoptID" value="@request.AdoptID" />
+                                                <button type="submit" class="dropdown-item text-secondary"
+                                                        onclick="return confirm('Are you sure you want to delete this request?');">
+                                                     Delete
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 </div>
+
+<!-- Custom CSS -->
+<style>
+    /* Make table rows have a soft hover effect */
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa !important;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    /* Style for the Actions dropdown button */
+    .btn-group .dropdown-toggle {
+        background-color: #007bff; /* Primary blue */
+        border: none;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        /* Soft hover effect for Actions button */
+        .btn-group .dropdown-toggle:hover {
+            background-color: #0056b3; /* Slightly darker blue */
+        }
+
+    /* Custom styling for dropdown menu */
+    .btn-group .dropdown-menu {
+        min-width: 120px;
+    }
+
+    /* Adjust hover effect on dropdown items */
+    .dropdown-menu .dropdown-item {
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+        /* Subtle color change on hover for dropdown items */
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #f0f0f0; /* Light grey */
+            color: #000; /* Dark text */
+        }
+</style>

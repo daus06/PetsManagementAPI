@@ -4,17 +4,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Home4Strays</title>
+    <title>@ViewData["Title"] - StraySafe</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PetsManagementAPI.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css" />
-    <!-- Bootstrap Icons CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <!-- Google Fonts for cute font (Pacifico) -->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+
+    <!-- Custom Styles -->
     <style>
-        /* General Reset */
         * {
             margin: 0;
             padding: 0;
@@ -25,58 +24,58 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f1ea;
         }
 
-        /* Navbar Styles */
         .navbar {
-            background-color: #f5ece3 !important;
-            box-shadow: 0 2px 10px rgba(0,0,160,0.1);
+            background-color: #8d5524 !important;
             padding: 1rem 2rem;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-brand {
-            color: #0000a0 !important;
-            font-family: 'Pacifico', cursive;
-            font-size: 1.8rem;
-            transition: color 0.3s ease;
+            color: #fff !important;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.3s ease;
         }
 
+            .navbar-brand:hover {
+                opacity: 0.9;
+            }
+
+            .navbar-brand img {
+                height: 50px;
+                margin-right: 0.75rem;
+                border-radius: 50%;
+            }
+
         .nav-link {
-            color: #0000a0 !important;
-            font-weight: 500;
-            font-size: 1.2rem;
+            color: #fff !important;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin: 0 1.2rem;
             transition: all 0.3s ease;
-            margin: 0 1rem; /* Spacing between nav items */
         }
 
             .nav-link:hover {
-                color: #000066 !important;
-                transform: translateY(-2px);
+                color: #e6b800 !important;
+                transform: scale(1.05);
             }
+
+        .nav-item i {
+            margin-right: 0.4rem;
+            font-size: 1.1rem;
+        }
 
         .navbar-toggler {
             border: none;
+            color: #fff;
         }
-
-        .nav-item i {
-            margin-right: 0.5rem;
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-link:hover i {
-            transform: scale(1.1);
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-        }
-
-            .navbar-brand img {
-                height: 60px;
-                margin-right: 1rem;
-            }
 
         .navbar-nav {
             margin-left: auto;
@@ -84,34 +83,49 @@
             align-items: center;
         }
 
-        /* Footer Styles */
+        .dropdown-menu {
+            background-color: #8d5524;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .dropdown-item {
+            color: #fff;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+            .dropdown-item:hover {
+                background-color: #6b3e1b;
+                color: #e6b800;
+            }
+
+        main {
+            flex: 1;
+            padding-bottom: 80px;
+        }
+
         .footer {
-            background-color: #f5ece3;
-            color: #0000a0;
-            padding: 1.5rem 0;
-            font-size: 1.1rem;
-            position: fixed;
-            bottom: 0;
+            background-color: #8d5524;
+            color: #fff;
+            padding: 1rem 0;
+            font-size: 0.95rem;
+            text-align: center;
             width: 100%;
-            margin-top: auto; /* Push footer to bottom if content is short */
+            margin-top: auto;
         }
 
             .footer a {
-                color: #0000a0;
+                color: #e6b800;
                 text-decoration: none;
+                font-weight: 500;
                 transition: color 0.3s ease;
             }
 
                 .footer a:hover {
-                    color: #000066;
+                    color: #fff;
                     text-decoration: underline;
                 }
-
-        /* Ensure content is not overlapped by the fixed footer */
-        main {
-            padding-bottom: 100px; /* Adjust based on footer height */
-            flex: 1; /* Ensure main content takes remaining space */
-        }
     </style>
 </head>
 <body>
@@ -119,125 +133,146 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.png" alt="Home4Strays Logo">
-                    Home4Strays
+                    <!-- Replace with a fallback if the image is missing -->
+                    <img src="~/images/logo.jpeg" alt="StraySafe Logo" onerror="this.src='https://via.placeholder.com/50';" />
+                    StraySafe
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-controls="navbarNav"
+                        data-bs-target="#navbarContent" aria-controls="navbarContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-house-door"></i>Home
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house"></i> Home
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="About">
-                                <i class="bi bi-info-circle"></i>About Us
+                                <i class="bi bi-info-circle"></i> About
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Pets" asp-action="FindPet">
-                                <i class="bi bi-search"></i>Find A Pet
+                                <i class="bi bi-paw"></i> Adopt
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="FAQs">
-                                <i class="bi bi-question-circle"></i>FAQs
+                                <i class="bi bi-question-circle"></i> FAQs
                             </a>
                         </li>
-                        @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link login-btn" asp-controller="Users" asp-action="Login">
-                                <i class="bi bi-box-arrow-in-right"></i>Login
-                            </a>
-                        </li>
-                    }
-                    else if (User.IsInRole("Admin")) // ✅ Check if user is an Admin
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i>
-                                @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Admins" asp-action="ViewUsers">
-                                        <i class="bi bi-speedometer2"></i> View Users
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Admins" asp-action="ViewPets">
-                                        <i class="bi bi-speedometer2"></i> View Pets
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Admins" asp-action="ViewAdoptionRequest">
-                                        <i class="bi bi-speedometer2"></i> View Requests
-                                    </a>
-                                </li>
-                                <li>
-                                    <form method="post" asp-controller="Users" asp-action="Logout">
-                                        <button type="submit" class="dropdown-item">
-                                            <i class="bi bi-box-arrow-right"></i> Logout
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    }
-                    else // ✅ Regular authenticated users
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i>
-                                @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Users" asp-action="ViewMyAdoptionRequest">
-                                        <i class="bi bi-speedometer2"></i> View My Requests
-                                    </a>
-                                </li>
-                                <li>
-                                    <form method="post" asp-controller="Users" asp-action="Logout">
-                                        <button type="submit" class="dropdown-item">Logout</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    }
 
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Users" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right"></i> Login
+                                </a>
+                            </li>
+                        }
+                        else if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i>
+                                    @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminMenu">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Admins" asp-action="ViewUsers">
+                                            <i class="bi bi-people"></i> View Users
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Admins" asp-action="ViewPets">
+                                            <i class="bi bi-paw"></i> View Pets
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Admins" asp-action="ViewAdoptionRequest">
+                                            <i class="bi bi-list-check"></i> View Requests
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <form method="post" asp-controller="Users" asp-action="Logout">
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-box-arrow-right"></i> Logout
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i>
+                                    @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="userMenu">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Users" asp-action="ViewMyAdoptionRequest">
+                                            <i class="bi bi-list-check"></i> My Requests
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <form method="post" asp-controller="Users" asp-action="Logout">
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-box-arrow-right"></i> Logout
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main role="main">
+        @RenderBody()
+    </main>
 
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p>© 2025 Home4Strays. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <a asp-area="" asp-controller="Home" asp-action="Privacy" class="me-3">Privacy Policy</a>
-                </div>
-            </div>
+        <div class="container-fluid">
+            <p class="text-center">
+                © 2025 Home4Strays. All rights reserved. |
+                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="me-3">Privacy Policy</a>
+            </p>
         </div>
     </footer>
+
+    <style>
+        .footer {
+            background: #6b3e1b; /*  shade */
+            color: white;
+            padding: 15px 0;
+            font-size: 14px;
+            width: 100%; /* Ensures full width */
+            text-align: center;
+            position: relative;
+        }
+
+            .footer a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

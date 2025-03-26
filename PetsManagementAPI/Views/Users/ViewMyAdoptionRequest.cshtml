@@ -4,46 +4,108 @@
     ViewData["Title"] = "My Adoption Requests";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center">My Adoption Requests</h2>
+<style>
+    body {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 40px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table thead {
+        background: #6a11cb;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background: #f8f9fa;
+    }
+
+    .btn-info {
+        background-color: #2575fc;
+        border: none;
+        transition: 0.3s ease-in-out;
+    }
+
+        .btn-info:hover {
+            background-color: #1a5ed8;
+        }
+
+    .modal-header {
+        background: #6a11cb;
+        color: white;
+    }
+
+    .modal-body {
+        font-size: 16px;
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center fw-bold mb-4">?? My Adoption Requests</h2>
 
     @if (!Model.Any())
     {
-        <p class="text-center text-muted">You have not submitted any adoption requests.</p>
+        <p class="text-center text-muted">You have not submitted any adoption requests yet.</p>
     }
     else
     {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Pet Name</th>
-                    <th>Status</th>
-                    <th>Submitted At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var request in Model)
-                {
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td>@request.Pet?.PetName</td>
-                        <td>@request.Status</td>
-                        <td>@request.SubmittedAt.ToShortDateString()</td>
-                        <td>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#petDetailsModal"
-                                    data-petname="@request.Pet?.PetName"
-                                    data-pettype="@request.Pet?.PetType"
-                                    data-breed="@request.Pet?.Breed"
-                                    data-age="@request.Pet?.Age"
-                                    data-neutered="@(request.Pet?.Neutered == true ? "Yes" : "No")"
-                                    data-vaccine="@(request.Pet?.Vaccine == true ? "Fully Vaccinated" : "Not Vaccinated")">
-                                View Details
-                            </button>
-                        </td>
+                        <th>Pet Name</th>
+                        <th>Status</th>
+                        <th>Submitted At</th>
+                        <th>Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@request.Pet?.PetName</td>
+                            <td>
+                                @if (request.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                                else if (request.Status == "Approved")
+                                {
+                                    <span class="badge bg-success">Approved</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Rejected</span>
+                                }
+                            </td>
+                            <td>@request.SubmittedAt.ToShortDateString()</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#petDetailsModal"
+                                        data-petname="@request.Pet?.PetName"
+                                        data-pettype="@request.Pet?.PetType"
+                                        data-breed="@request.Pet?.Breed"
+                                        data-age="@request.Pet?.Age"
+                                        data-neutered="@(request.Pet?.Neutered == true ? "Yes" : "No")"
+                                        data-vaccine="@(request.Pet?.Vaccine == true ? "Fully Vaccinated" : "Not Vaccinated")">
+                                    <i class="bi bi-eye"></i> View Details
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 </div>
 
@@ -52,16 +114,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="petDetailsModalLabel">Pet Details</h5>
+                <h5 class="modal-title fw-bold" id="petDetailsModalLabel">?? Pet Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p><strong>Pet Name:</strong> <span id="modalPetName"></span></p>
-                <p><strong>Type:</strong> <span id="modalPetType"></span></p>
-                <p><strong>Breed:</strong> <span id="modalBreed"></span></p>
-                <p><strong>Age:</strong> <span id="modalAge"></span></p>
-                <p><strong>Neutered:</strong> <span id="modalNeutered"></span></p>
-                <p><strong>Vaccination Status:</strong> <span id="modalVaccine"></span></p>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Pet Name:</strong> <span id="modalPetName"></span></li>
+                    <li class="list-group-item"><strong>Type:</strong> <span id="modalPetType"></span></li>
+                    <li class="list-group-item"><strong>Breed:</strong> <span id="modalBreed"></span></li>
+                    <li class="list-group-item"><strong>Age:</strong> <span id="modalAge"></span></li>
+                    <li class="list-group-item"><strong>Neutered:</strong> <span id="modalNeutered"></span></li>
+                    <li class="list-group-item"><strong>Vaccination Status:</strong> <span id="modalVaccine"></span></li>
+                </ul>
             </div>
         </div>
     </div>
