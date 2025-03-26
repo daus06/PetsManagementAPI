@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Pets\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
